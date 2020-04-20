@@ -1,0 +1,7 @@
+/.externalToolBuilders
+/.settings
+/bin
+/build
+/obj
+/res
+**.jrf
