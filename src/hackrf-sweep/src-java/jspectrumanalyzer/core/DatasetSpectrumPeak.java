@@ -14,14 +14,12 @@ public class DatasetSpectrumPeak extends DatasetSpectrum
 	/**
 	 * stores EMA decaying peaks
 	 */
-//	protected float[]	spectrumPeak;					//		CYRUS	CYRUS	CYRUS	CYRUS	CYRUS			commented out
-	public float[]	spectrumPeak;						//		CYRUS	CYRUS	CYRUS	CYRUS	CYRUS
+	public float[]	spectrumPeak;						
 
 	/**
 	 * stores real peaks and if {@link #spectrumPeak} falls more than preset value below it, start using values from {@link #spectrumPeak}
 	 */
-//	protected float[]	spectrumPeakHold;				//		CYRUS	CYRUS	CYRUS	CYRUS	CYRUS			commented out
-	public float[]	spectrumPeakHold;					//		CYRUS	CYRUS	CYRUS	CYRUS	CYRUS
+	public float[]	spectrumPeakHold;					
 	
 	public DatasetSpectrumPeak(float fftBinSizeHz, int freqStartMHz, int freqStopMHz, float spectrumInitPower, float peakFallThreshold, long peakFalloutMillis)
 	{

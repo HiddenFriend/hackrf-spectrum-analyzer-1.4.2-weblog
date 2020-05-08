@@ -86,12 +86,10 @@ import shared.mvc.ModelValue;
 import shared.mvc.ModelValue.ModelValueBoolean;
 import shared.mvc.ModelValue.ModelValueInt;
 
-//					CYRUS		HTTP POST														CYRUS	CYRUS	CYRUS	CYRUS	CYRUS
-
 import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+//import java.net.http.HttpClient;
+//import java.net.http.HttpRequest;
+//import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.lang.Object;
 import java.lang.String;
@@ -186,7 +184,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 
 	private static long		initTime					= System.currentTimeMillis();
 	
-	public static Runtime RT;							//		CYRUS	CYRUS	CYRUS	CYRUS	CYRUS
+	public static Runtime RT;						
 
 	public static void main(String[] args) throws IOException {
 		
@@ -198,7 +196,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 			}
 			//		try { Thread.sleep(20000); System.out.println("Started..."); } catch (InterruptedException e) {}
 	
-			RT = Runtime.getRuntime();						//			CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	
+			RT = Runtime.getRuntime();	
 			
 			new HackRFSweepSpectrumAnalyzer();
 	}
@@ -236,7 +234,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 	private ModelValueBoolean						parameterFilterSpectrum				= new ModelValueBoolean(
 			"Filter", false);
 	private ModelValue<FrequencyRange>				parameterFrequency					= new ModelValue<>(
-			"Frequency range", new FrequencyRange(100, 1000));															//				CYRUS	CYRUS	CYRUS		starting and ending frequencies
+			"Frequency range", new FrequencyRange(100, 1000));		
 
 	private ModelValue<FrequencyAllocationTable>	parameterFrequencyAllocationTable	= new ModelValue<FrequencyAllocationTable>(
 			"Frequency allocation table", null);
@@ -296,9 +294,9 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 
 		if (captureGIF) {
 //			parameterFrequency.setValue(new FrequencyRange(700, 2700));
-			parameterFrequency.setValue(new FrequencyRange(100, 1000));		//	CYRUS	CYRUS	CYRUS	CYRUS        original value = 2400, 2700  
+			parameterFrequency.setValue(new FrequencyRange(100, 1000));	
 			parameterGainTotal.setValue(60);
-			parameterSpurRemoval.setValue(true);								//	CYRUS	CYRUS	CYRUS	CYRUS        original value = true
+			parameterSpurRemoval.setValue(true);			
 			parameterPersistentDisplay.setValue(true);
 			parameterFFTBinHz.setValue(500000);
 			parameterFrequencyAllocationTable.setValue(new FrequencyAllocations().getTable().values().stream().findFirst().get());
@@ -521,7 +519,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 			float[] signalPowerdBm) {
 		//		System.out.println(frequencyStart+" "+fftBinWidthHz+" "+signalPowerdBm);
 		fireHardwareStateChanged(true);
-		if (!hwProcessingQueue.offer(new FFTBins(fullSweepDone, frequencyStart, fftBinWidthHz, signalPowerdBm))) {				//		CYRUS	CYRUS	CYRUS
+		if (!hwProcessingQueue.offer(new FFTBins(fullSweepDone, frequencyStart, fftBinWidthHz, signalPowerdBm))) {			
 			System.out.println("queue full");
 			dropped++;
 		}
@@ -651,13 +649,13 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 							}
 						}
 						/**
-						 * after filtering, calculate peak spectrum								CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	
+						 * after filtering, calculate peak spectrum		
 						 */
 						if (parameterShowPeaks.getValue()) {
 							datasetSpectrum.refreshPeakSpectrum();
 							waterfallPlot.setStatusMessage(String.format("Total Spectrum Peak Power %.1fdBm",
 									datasetSpectrum.calculateSpectrumPeakPower()), 0);
-							System.out.println("CYRUS - peak power");				//	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	
+							System.out.println(" - peak power");			
 						}
 
 						/**
@@ -674,10 +672,9 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 								});
 								perfWatch.reset();
 								
-								//		CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS			Added this
-								try {												//			CYRUS	CYRUS	CYRUS	CYRUS	CYRUS										
+								try {																
 								
-//									System.out.println("CYRUS - perfWatch.reset" + Arrays.toString(datasetSpectrum.getSpectrumArray()) );				//	this trigger every second   CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	
+//									System.out.println(" - perfWatch.reset" + Arrays.toString(datasetSpectrum.getSpectrumArray()) );	
 									curl_it = false;
 									command = "";
 									StartFrequency = datasetSpectrum.getFreqStartMHz();
@@ -693,10 +690,10 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 									if( curl_it ) {
 										command = "curl -X POST http://10.90.1.147/hackrf.php/post --data " + command; 
 										PR= RT.exec(command);
-										System.out.println("HTTP TRANSMITTED TO SERVER:  ID Cyrus_001 @ <37.247010,-122.003730> DETECTED "+command);
+										System.out.println("HTTP TRANSMITTED TO SERVER:  ID 123 @ <37.247010,-122.003730> DETECTED "+command);
 									}
 								} catch(IOException ie) {
-									System.out.println("IOException in processingThread() - CYRUS");
+									System.out.println("IOException in processingThread() - ");
 								}
 								
 //								HttpClientPost();
@@ -711,7 +708,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 							flagChartRedraw	= true;
 							frameCounterChart++;
 							lastChartUpdated = System.currentTimeMillis();
-//							System.out.println("CYRUS - chart redraw");				//	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	
+//							System.out.println(" - chart redraw");				
 						}
 
 						
@@ -1332,11 +1329,10 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 		}
 	}
 	
-//							CYRUS		HTTP POST						CYRUS	CYRUS	CYRUS	CYRUS	CYRUS	CYRUS
 	
 	public void HttpClientPost() {
 
-		System.out.println("CYRUS - http");
+		System.out.println(" - http");
 	
 	}
 }
